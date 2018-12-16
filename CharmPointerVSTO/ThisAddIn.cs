@@ -12,77 +12,46 @@ namespace CharmPointerVSTO
 {
     public partial class ThisAddIn
     {
-        BackgroundWorker mainLoopWorker;
-        PowerPoint.SlideShowWindow window = null;
+        PointerForm pointerForm;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            pointerForm = new PointerForm();
+            pointerForm.Show();
 
             Globals.ThisAddIn.Application.SlideShowBegin += Application_SlideShowBegin;
             Globals.ThisAddIn.Application.SlideShowEnd += Application_SlideShowEnd;
 
+            Globals.ThisAddIn.Application.WindowActivate += Application_WindowActivate;
+            Globals.ThisAddIn.Application.WindowDeactivate += Application_WindowActivate;
+        }
+
+        private void Application_WindowActivate(PowerPoint.Presentation Pres, PowerPoint.DocumentWindow Wn)
+        {
+            UpdatePointer();
         }
 
         private void Application_SlideShowBegin(PowerPoint.SlideShowWindow Wn)
         {
-            mainLoopWorker = new BackgroundWorker();
-            mainLoopWorker.DoWork += MainLoopWorker_DoWork;
-            mainLoopWorker.WorkerSupportsCancellation = true;
-
-            window = Wn;
-            mainLoopWorker.RunWorkerAsync();
+            pointerForm.SlideWindowRectangle = new System.Drawing.Rectangle(
+               (int)Wn.Left, (int)Wn.Top, (int)Wn.Width, (int)Wn.Height
+               );
+            //pointerForm.Show();
         }
 
         private void Application_SlideShowEnd(PowerPoint.Presentation Pres)
         {
-            mainLoopWorker.CancelAsync();
-            mainLoopWorker = null;
-            window = null;
+            //pointerForm.Hide();
         }
 
+        private void UpdatePointer()
+        {
+        }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            if (mainLoopWorker != null)
-            {
-                mainLoopWorker.CancelAsync();
-            }
-        }
-
-        private void MainLoopWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            PointerForm pointerForm;
-            pointerForm = new PointerForm();
-            pointerForm.Show();
-
-            Console.WriteLine("Slideshow started!");
-
-            BackgroundWorker worker = (BackgroundWorker)sender;
-            while (!worker.CancellationPending && (window != null))
-            {
-                int wx = 0;
-                int wy = 0;
-
-                // タイミングにより途中で window が無くなることもあるため try{} を利用
-                try
-                {
-                    wx = (int)window.Left;
-                    wy = (int)window.Top;
-                }
-                catch
-                {
-                    wx = 0;
-                    wy = 0;
-                }
-
-                var pos = Control.MousePosition;
-                pointerForm.SetPosition(pos);
-            }
-
-            e.Cancel = true;
             pointerForm.Close();
         }
-
 
         #region VSTO で生成されたコード
 

@@ -63,6 +63,8 @@
             this.ShowInTaskbar = false;
             this.Text = "PointerForm";
             this.TransparencyKey = System.Drawing.Color.Yellow;
+            this.Load += new System.EventHandler(this.PointerForm_Load);
+            this.Shown += new System.EventHandler(this.PointerForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPointer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
