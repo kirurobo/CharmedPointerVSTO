@@ -175,6 +175,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SettingsRibbon.resx">
+      <DependentUpon>SettingsRibbon.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="CharmPointerVSTO_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -183,6 +186,12 @@
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsRibbon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SettingsRibbon.Designer.cs">
+      <DependentUpon>SettingsRibbon.cs</DependentUpon>
     </Compile>
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>

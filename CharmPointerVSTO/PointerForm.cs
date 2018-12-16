@@ -21,10 +21,11 @@ namespace CharmPointerVSTO
         public Rectangle SlideWindowRectangle;
         public Rectangle PreviewWindowRectangle;
         public bool HasPreview;
+        public bool IsEnabled = true;
 
-        public double showVelocityThreshold = 200.0;     // 期間内にこの平均速度 [px/s] を超えるとポインターを表示する
-        public double hideVelocityThreshold = 10.0;     // 一度表示されたあとはこの平均速度 [px/s] を超える限りポインターを表示する
-        public double ShowDuration = 3.0;               // 一度表示されたら、この時間 [ms] 表示し続ける
+        public double showVelocityThreshold = 1000.0;     // 期間内にこの平均速度 [px/s] を超えるとポインターを表示する
+        public double hideVelocityThreshold = 20.0;     // 一度表示されたあとはこの平均速度 [px/s] を超える限りポインターを表示する
+        public double ShowDuration = 2.0;               // 一度表示されたら、この時間 [ms] 表示し続ける
 
         private int MaxVelocityQueue;
         private readonly double QueueDuration = 0.3;        // マウス速度を観察する期間 [s]
@@ -152,6 +153,8 @@ namespace CharmPointerVSTO
         /// <returns></returns>
         private bool CheckVisiblity()
         {
+            if (!IsEnabled) return false;
+
             long now = stopwatch.ElapsedMilliseconds;
 
             if (!isVisible)

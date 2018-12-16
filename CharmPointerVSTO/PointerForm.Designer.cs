@@ -40,7 +40,7 @@
             this.pictureBoxPointer.Image = global::CharmPointerVSTO.Properties.Resources.pointer01;
             this.pictureBoxPointer.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxPointer.Name = "pictureBoxPointer";
-            this.pictureBoxPointer.Size = new System.Drawing.Size(200, 200);
+            this.pictureBoxPointer.Size = new System.Drawing.Size(128, 128);
             this.pictureBoxPointer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxPointer.TabIndex = 0;
             this.pictureBoxPointer.TabStop = false;
@@ -55,7 +55,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Yellow;
-            this.ClientSize = new System.Drawing.Size(200, 200);
+            this.ClientSize = new System.Drawing.Size(128, 128);
             this.Controls.Add(this.pictureBoxPointer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PointerForm";

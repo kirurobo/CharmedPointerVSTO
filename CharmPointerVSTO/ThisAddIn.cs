@@ -12,18 +12,17 @@ namespace CharmPointerVSTO
 {
     public partial class ThisAddIn
     {
-        PointerForm pointerForm;
+        public PointerForm pointerForm = new PointerForm();
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            pointerForm = new PointerForm();
             pointerForm.Show();
 
-            Globals.ThisAddIn.Application.SlideShowBegin += Application_SlideShowBegin;
-            Globals.ThisAddIn.Application.SlideShowEnd += Application_SlideShowEnd;
-
-            Globals.ThisAddIn.Application.WindowActivate += Application_WindowActivate;
-            Globals.ThisAddIn.Application.WindowDeactivate += Application_WindowActivate;
+            this.Application.SlideShowBegin += Application_SlideShowBegin;
+            this.Application.SlideShowEnd += Application_SlideShowEnd;
+            
+            this.Application.WindowActivate += Application_WindowActivate;
+            this.Application.WindowDeactivate += Application_WindowActivate;
         }
 
         private void Application_WindowActivate(PowerPoint.Presentation Pres, PowerPoint.DocumentWindow Wn)
@@ -37,6 +36,8 @@ namespace CharmPointerVSTO
                (int)Wn.Left, (int)Wn.Top, (int)Wn.Width, (int)Wn.Height
                );
             //pointerForm.Show();
+
+            UpdatePointer();
         }
 
         private void Application_SlideShowEnd(PowerPoint.Presentation Pres)
@@ -46,6 +47,7 @@ namespace CharmPointerVSTO
 
         private void UpdatePointer()
         {
+            var presentation = this.Application.ActivePresentation;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
